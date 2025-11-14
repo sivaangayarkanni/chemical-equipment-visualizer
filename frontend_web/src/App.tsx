@@ -11,6 +11,7 @@ import PredictiveMaintenance from './components/PredictiveMaintenance';
 import Equipment3D from './components/Equipment3D';
 import { Dataset } from './types';
 import { getDatasets } from './api';
+import { sampleEquipment, sampleStats } from './data/sampleData';
 
 function App() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
@@ -29,7 +30,17 @@ function App() {
         setSelectedDataset(data[0]);
       }
     } catch (error) {
-      console.error('Failed to load datasets:', error);
+      console.error('Failed to load datasets, using sample data:', error);
+      // Use sample data for demo
+      const sampleDataset: Dataset = {
+        id: 1,
+        name: 'Sample Chemical Plant Data',
+        uploaded_at: new Date().toISOString(),
+        summary_stats: sampleStats,
+        equipment: sampleEquipment
+      };
+      setDatasets([sampleDataset]);
+      setSelectedDataset(sampleDataset);
     } finally {
       setLoading(false);
     }
