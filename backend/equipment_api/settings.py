@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!lo2##nl+n%jd^gbcv0#la6tk6=bhmct)4w3g^=-n4p)(y6#8p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app', '.netlify.app']
 
 
 # Application definition
@@ -140,6 +140,13 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Production settings
+import os
+if 'RAILWAY_ENVIRONMENT' in os.environ:
+    DEBUG = False
+    ALLOWED_HOSTS = ['*']
+    CORS_ALLOW_ALL_ORIGINS = True
 
 # Media files
 import os
